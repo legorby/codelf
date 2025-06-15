@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги Кодельф Солюшнс</title>
+    <!-- Chosen Palette: Calm Corporate -->
+    <!-- Application Structure Plan: A single-page application focused solely on presenting services. Each service is represented by an interactive card that expands to reveal detailed information. This structure is chosen to allow potential customers to quickly grasp the range of offerings and then deep-dive into specific services of interest without navigating away. It's clean, intuitive, and mobile-friendly. -->
+    <!-- Visualization & Content Choices: Services are presented as clickable cards. Each card contains a concise title and product list, with a hidden detailed section (description, work package, advantages, results) that toggles visibility on click. This manages information density effectively. The only "visualizations" are the expansion arrows and the overall clear layout. Confirming NO SVG/Mermaid is used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .service-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+        }
+        .service-detail.open {
+            max-height: 2500px; /* Adjust as needed for content length */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="w-full bg-white p-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl lg:text-3xl font-bold text-slate-900">Кодельф Солюшнс: Наши Услуги</h1>
+            <p class="text-slate-600 hidden md:block">Эффективная автоматизация бизнес-процессов на 1С</p>
+        </div>
+    </header>
+
+    <!-- Main Content - Services Section -->
+    <main class="flex-grow p-4 lg:p-8">
+        <section id="services" class="max-w-7xl mx-auto py-8">
+            <p class="text-lg text-slate-600 mb-8">
+                Мы предлагаем комплексные решения по автоматизации на базе платформы 1С:Предприятие. Наши услуги ориентированы на повышение операционной эффективности вашего бизнеса, минимизацию затрат на кастомизацию и максимальное использование стандартных возможностей 1С. Ниже представлен полный перечень наших ключевых услуг. Нажмите на любую услугу, чтобы узнать подробности.
+            </p>
+            <div id="services-container" class="space-y-6">
+                <!-- Service cards will be injected here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-slate-800 text-white p-4 text-center">
+        <div class="max-w-7xl mx-auto text-sm text-slate-400">
+            &copy; 2025 Кодельф Солюшнс. Все права защищены.
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const businessServicesData = [
+        {
+            title: "Организация системы управленческого учета",
+            products: "1С:ERP, 1С:КА, 1С:УТ",
+            description: "Мы предлагаем комплексные услуги по организации эффективной системы управленческого учета. Наша цель – помочь клиентам получить прозрачную и достоверную управленческую отчетность с минимальными доработками типовых решений.",
+            workPackage: [
+                "Анализ существующей НСИ и разработка модели единой НСИ.",
+                "Анализ существующих процессов и формирование 'слепка' системы.",
+                "Разработка маршрутной карты для заказчика.",
+                "Определение ответственных лиц.",
+                "Контроль выполнения маршрутной карты.",
+                "Подготовка системы для старта: загрузка данных, инструкции, обучение.",
+                "Активное участие в переходе в промышленную эксплуатацию."
+            ],
+            advantages: [
+                "Собственная методология внедрения в типовой функционал (80% задач).",
+                "Многолетний опыт в подготовке данных и НСИ.",
+                "15-летний опыт внедрения систем управленческого учета."
+            ],
+            results: "Использование единой, поддерживаемой системы 1С, уменьшение человеческого фактора, структуризация данных, прозрачная аналитика."
+        },
+        {
+            title: "Автоматизация конструкторско-технологических работ",
+            products: "Платформа 1С",
+            description: "Эта услуга ориентирована на отделы конструкторов и проектировщиков, которые активно взаимодействуют с другими отделами предприятия и нуждаются в оптимизации своих рабочих процессов.",
+            workPackage: [
+                "Организация системы заявок на проектирование.",
+                "Разработка алгоритмов инженерных расчетов на платформе 1С.",
+                "Организация обменов с другими инженерными системами.",
+                "Формирование сводных форм документов и отчетов (сметы, спецификации)."
+            ],
+            advantages: [
+                "Гибкая разработка под индивидуальные нужды на платформе 1С.",
+                "Сроки разработки сокращаются в несколько раз по сравнению с классическими языками.",
+                "Более 10 лет опыта в автоматизации работы с КТР-отделами."
+            ],
+            results: "Уменьшение человеческого фактора при обмене информацией, структуризация данных, выработка единых стандартов, упрощение работы с историческими данными."
+        },
+        {
+            title: "Профессиональное сопровождение самостоятельного перехода на 1С:ERP",
+            products: "1С:ERP",
+            description: "Эта услуга предназначена для производственных компаний, которые планируют самостоятельный переход на 1С:ERP, но нуждаются в экспертной поддержке и контроле.",
+            workPackage: [
+                "Анализ НСИ и разработка модели для 1С:ERP.",
+                "Анализ и моделирование бизнес-процессов.",
+                "Разработка маршрутной карты для заказчика с контролем выполнения.",
+                "Совместное тестирование перед запуском.",
+                "Активное участие в процессе перехода в промышленную эксплуатацию."
+            ],
+            advantages: [
+                "Собственная методология поэтапного, контролируемого перехода.",
+                "Многолетний опыт в подготовке производственной НСИ.",
+                "7-летний опыт автоматизации производств на 1С:ERP."
+            ],
+            results: "Успешный переход на единую систему, сокращение издержек на поддержку, структуризация данных и прозрачная аналитика."
+        },
+        {
+            title: "Комплексное внедрение 1С:ERP для производств",
+            products: "1С:ERP",
+            description: "Эта услуга для компаний с крупными производственными процессами, которым требуется внедрение 1С:ERP 'под ключ' с адаптацией под специфику отрасли.",
+            workPackage: [
+                "Подготовка и настройка справочников продукции и материалов.",
+                "Настройка спецификаций и технологических процессов, разработка калькуляторов.",
+                "Бесшовный переход от заявок к производству.",
+                "Организация фактического учета на производстве (контроль сырья, партий).",
+                "Бесшовный переход от производства к складу и отгрузке.",
+                "Настройка расчета себестоимости в различных разрезах."
+            ],
+            advantages: [
+                "Поэтапный контролируемый переход на систему.",
+                "7-летний опыт автоматизации производственных предприятий на 1С:ERP.",
+                "Использование готовых типовых процессов для минимизации доработок."
+            ],
+            results: "Единая управляемая система, уменьшение человеческого фактора, прозрачная сквозная аналитика выполнения заказов."
+        },
+        {
+            title: "Организация кадрового учета и расчета ЗП",
+            products: "1С:ЗУП, 1С:КА, 1С:ERP",
+            description: "Для компаний с численностью >50 сотрудников и сложными методами расчета оплаты труда (производственные, строительные компании).",
+            workPackage: [
+                "Анализ существующих формул расчета ЗП.",
+                "Настройка тестового расчета на примере до 20 сотрудников.",
+                "Формирование плана полного перевода расчета всех сотрудников.",
+                "Поддержка в первые месяцы расчета после запуска."
+            ],
+            advantages: [
+                "Собственная методология настройки на типовом функционале (90% случаев).",
+                "Наличие собственного модуля 'Ежедневный табель' для расширения.",
+                "10-летний опыт внедрения систем учета заработной платы."
+            ],
+            results: "Точный и своевременный расчет ЗП, оперативное отслеживание расходов, соответствие законодательству."
+        },
+        {
+            title: "Перевод доработанных 1С на поддержку",
+            products: "1С:УТ, УНФ, КА, ERP, БП, ЗУП",
+            description: "Для любых компаний, которые используют 1С, но сталкиваются с проблемами при обновлении из-за наличия доработок.",
+            workPackage: [
+                "Анализ существующей доработанной конфигурации.",
+                "Актуализация доработок и сравнение с новым типовым функционалом.",
+                "Предоставление плана перехода на обновляемую систему.",
+                "Перенос требуемых доработок в 'расширения'.",
+                "Тестирование и обновление рабочей базы.",
+                "Поддержка пользователей после обновления."
+            ],
+            advantages: [
+                "Собственная методология анализа доработок.",
+                "Многолетний опыт внедрения с минимальными доработками.",
+                "15-летний опыт работы с конфигурациями 1С:УТ, БП, ЗУП и 8-летний с ERP, КА."
+            ],
+            results: "Возможность легко и безопасно получать обновления 1С, снижение стоимости поддержки, повышение стабильности системы."
+        }
+    ];
+
+    const servicesContainer = document.getElementById('services-container');
+    if (servicesContainer) {
+        businessServicesData.forEach((service, index) => {
+            const card = document.createElement('div');
+            card.className = 'service-card bg-white rounded-lg shadow-md cursor-pointer';
+            card.innerHTML = `
+                <div class="p-6 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">${service.title}</h3>
+                        <p class="text-amber-600 font-semibold">${service.products}</p>
+                    </div>
+                    <span class="text-2xl text-slate-400 transform transition-transform duration-300">&#x25BC;</span>
+                </div>
+                <div class="service-detail px-6">
+                    <div class="border-t pt-4 pb-6">
+                        <p class="text-slate-600 mb-4">${service.description}</p>
+                        <h4 class="font-bold text-slate-700 mb-2">Наш пакет работ включает:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600 mb-4">
+                            ${service.workPackage.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                        <h4 class="font-bold text-slate-700 mb-2">Ключевые преимущества:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600 mb-4">
+                            ${service.advantages.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                         <h4 class="font-bold text-slate-700 mb-2">Результаты для клиента:</h4>
+                         <p class="text-slate-600">${service.results}</p>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', () => {
+                const detail = card.querySelector('.service-detail');
+                const arrow = card.querySelector('span');
+                detail.classList.toggle('open');
+                arrow.classList.toggle('rotate-180');
+                if(detail.classList.contains('open')) {
+                    detail.style.paddingTop = '1rem';
+                    detail.style.paddingBottom = '1.5rem';
+                } else {
+                    detail.style.paddingTop = '0';
+                    detail.style.paddingBottom = '0';
+                }
+            });
+            servicesContainer.appendChild(card);
+        });
+    }
+});
+</script>
+</body>
+</html>
