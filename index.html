@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кодельф Солюшнс: Ключевые услуги</title>
     <!-- Chosen Palette: Calm Harmony Neutrals -->
-    <!-- Application Structure Plan: The SPA maintains its dashboard-like structure. The top navigation is consistent. The 'Наши Услуги' section now features enhanced service cards. Each card contains the main service description and a nested, collapsible 'Наши кейсы' section. Within 'Наши кейсы', individual case studies are also collapsible, allowing users to drill down into specific project details. This nested accordion structure greatly improves information architecture for detailed content like case studies, preventing visual clutter while enabling deep exploration. -->
-    <!-- Visualization & Content Choices: Content remains text-focused. Service details and nested case studies are presented using collapsible accordion cards (HTML/CSS/JS) to manage content density. This allows users to progressively disclose information, starting with an overview and expanding into case specifics. Unicode icons continue to provide intuitive visual cues for expansion/collapse. All service and case study data is managed within the JavaScript array for easy content updates, supporting the interactive content presentation without complex visualizations. -->
+    <!-- Application Structure Plan: The SPA maintains its dashboard-like structure. The top navigation is consistent. The 'Наши Услуги' section now features simplified service cards. Each card contains only the main service description. The nested 'Наши кейсы' section has been removed to present a cleaner overview of services. -->
+    <!-- Visualization & Content Choices: Content remains text-focused. Service details are presented using collapsible accordion cards (HTML/CSS/JS) to manage content density. Unicode icons continue to provide intuitive visual cues for expansion/collapse. All service data is managed within the JavaScript array for easy content updates, supporting the interactive content presentation without complex visualizations. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,7 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 12px -2px rgb(0 0 0 / 0.1), 0 3px 5px -3px rgb(0 0 0 / 0.08);
         }
-        .service-detail, .cases-container-content, .case-content {
+        .service-detail {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
@@ -41,16 +41,21 @@
             max-height: 2500px; /* Large enough for content */
             padding: 1.5rem 1.5rem; /* Padding when open */
         }
-        .cases-container.open .cases-container-content {
-            max-height: 1500px; /* Large enough for nested cases */
-            padding: 1rem 0; /* Padding when open */
-        }
-        .case-item.open .case-content {
-            max-height: 1000px; /* Large enough for case details */
-            padding: 0.75rem 1rem; /* Padding when open */
-        }
         .rotate-180 {
             transform: rotate(180deg);
+        }
+        /* Loading spinner styles */
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -88,7 +93,7 @@
         <section id="hero" class="flex flex-col md:flex-row items-center justify-between py-16 md:py-24 text-center md:text-left">
             <div class="md:w-1/2 mb-8 md:mb-0">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-4">
-                    "Кодельф Солюшнс": Интеллектуальная автоматизация для вашего бизнеса
+                    Интеллектуальная автоматизация для вашего бизнеса
                 </h1>
                 <p class="text-lg md:text-xl text-slate-600 mb-6">
                     Повышаем операционную эффективность с 1С: Предприятие, минимизируя доработки и обеспечивая легкие обновления.
@@ -97,8 +102,9 @@
                     Узнать об услугах
                 </a>
             </div>
-            <div class="md:w-1/2 flex justify-center">
-                <img src="https://placehold.co/500x300/e0f2fe/1e40af?text=Изображение%20автоматизации" alt="Автоматизация бизнеса" class="rounded-xl shadow-lg max-w-full h-auto">
+            <div class="md:w-1/2 flex justify-center items-center h-[300px] bg-slate-200 rounded-xl shadow-lg" id="hero-image-container">
+                <!-- Loading spinner or image will be injected here -->
+                <div id="image-loader" class="loader"></div>
             </div>
         </section>
 
@@ -173,7 +179,7 @@
 
     <!-- Footer -->
     <footer class="bg-slate-800 text-white p-6 text-center mt-16">
-        <p class="text-sm text-slate-400">&copy; 2024 Кодельф Солюшнс. Все права защищены.</p>
+        <p class="text-sm text-slate-400">&copy; 2025 Кодельф Солюшнс. Все права защищены.</p>
     </footer>
 
 <script>
@@ -181,8 +187,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Data for services (easily extendable)
     const servicesData = [
-        {
+          {
             id: 'service-1',
+            title: 'Анализ и оптимизация 1С:УПП/ERP/КА для сводной управленческой отчетности',
+            shortDescription: 'Анализ и оптимизация существующих систем 1С для точной и сводной управленческой отчетности.',
+            fullDescription: `
+                <p>Эта услуга предназначена для компаний, у которых уже установлена система 1С:УПП, 1С:ERP или 1С:КА, а также производные данных систем, и в которых заказчик хочет вести сводную управленческую отчетность.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Мы предлагаем:</h4>
+                <p>Анализ текущих систем, оптимизация существующих настроек систем, поиск эффективных решений существующих проблем, как за счет типового функционала, так и разработки.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Анализ ошибок в настройке существующей системы.</li>
+                    <li>Рекомендации по настройке бизнес-процессов.</li>
+                    <li>Разработка новых регламентов учета нормативно-справочной информации (НСИ), позволяющей перестроить учет в системе для всех блоков.</li>
+                    <li>Анализ закрытия периода, рекомендации по закрытию месяца, исправлению некорректных данных.</li>
+                    <li>Расширение задействованного функционала, используя типовые возможности или минимальные доработки.</li>
+                </ul>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Почему мы можем оказывать такие услуги:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Опыт по работе с конфигурациями 1С:УТ, БП, ЗУП, УПП — 15 лет. Опыт по внедрению конфигураций 1С:ERP, КА — 8 лет.</li>
+                    <li>Многолетний опыт в подготовке данных для организации производственной НСИ, настройка взаимосвязанных свойств и характеристик продукции, сырья. Учет требований регламентированного учета, создание единой НСИ компании.</li>
+                    <li>Использование готовых типовых процессов 1С:ERP позволяет минимизировать разработку дополнительных функций и сократить время выполнения проекта и его трудоемкость.</li>
+                </ul>
+            `
+        },
+          {
+            id: 'service-2',
+            title: 'Разработка 1С-решений для повышения операционной эффективности бизнеса',
+            shortDescription: 'Создаем архитектуру 1С-решений для достижения стратегических целей и повышения операционной эффективности бизнеса.',
+            fullDescription: `
+                <p>Эта услуга предназначена для любых компаний, которые хотели бы использовать возможности ИТ-технологий для решения своих стратегических целей, а также для повышения операционной эффективности бизнеса.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Мы предлагаем:</h4>
+                <p>Услуги разработки архитектуры решений для бизнеса на базе продуктов 1С, как для решения стратегических целей бизнеса, так и для повышения операционной эффективности.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                     <li>Решения для склада, продаж, закупок, производства, учета финансов</li>
+                    <li>Сбор и анализ неформализованных требований Заказчика, разработка архитектуры решений.</li>
+                    <li>Участие в проработке технических заданий для внедрения новых и улучшения существующих программных продуктов 1С.</li>
+                    <li>Разработка стандартизованных бизнес-процессов, перекладываемых на программные продукты 1С, совместно с Заказчиком.</li>
+                    <li>Анализ существующих конфигураций 1С (УПП, УТ, КА, ERP, ЗУП) для максимального использования типового функционала.</li>
+                    <li>Участие в разработке и внедрении индивидуальных решений с акцентом на дальнейшее обновление системы.</li>
+                </ul>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Почему мы можем оказывать такие услуги:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Опыт более 15 лет в сборе неформализованных требований Заказчика и разработке на их базе решений, как на базе существующих программных продуктов, так и разработанных под специфику Заказчика.</li>
+                    <li>Многолетний опыт внедрения конфигураций с минимальными доработками, использование типового функционала с возможностью дальнейших обновлений.</li>
+                    <li>Опыт по работе с конфигурациями 1С:УТ, БП, ЗУП, УПП — 15 лет. Опыт по внедрению конфигураций 1С:ERP, КА — 8 лет.</li>
+                </ul>
+            `
+        },
+         {
+            id: 'service-3',
+            title: 'Перевод доработанных конфигураций 1С на режим обновляемой поддержки',
+            shortDescription: 'Переводим доработанные 1С-конфигурации в режим, позволяющий безопасно получать регулярные обновления.',
+            fullDescription: `
+                <p>Эта услуга предназначена для компаний, которые используют 1С, но постоянно сталкиваются с проблемами при обновлении из-за наличия многочисленных доработок. Наша цель – перевести существующие кастомизированные конфигурации в режим, позволяющий легко и безопасно получать регулярные обновления от 1С.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Анализ существующей доработанной конфигурации.</li>
+                    <li>Актуализация доработок и сравнение с типовым функционалом.</li>
+                    <li>Формирование плана перехода на обновляемую систему.</li>
+                    <li>Перенос доработанных объектов в расширения.</li>
+                    <li>Постановка на поддержку конфигурации и тестирование.</li>
+                    <li>Повторное обновление на рабочей базе.</li>
+                    <li>Поддержка работы пользователей после обновления.</li>
+                </ul>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наши преимущества:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Собственная методология анализа и оптимизации.</li>
+                    <li>Многолетний опыт внедрения с минимальными доработками.</li>
+                    <li>Глубокая экспертиза в конфигурациях 1С (УТ, БП, ЗУП, ERP, КА).</li>
+                </ul>
+            `
+        },
+   
+        {
+            id: 'service-4',
             title: 'Организация системы управленческого учета',
             shortDescription: 'Настроим прозрачный управленческий учет на 1С:ERP, 1С:КА, 1С:УТ с минимальными доработками.',
             fullDescription: `
@@ -209,101 +289,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li>Использование единой, поддерживаемой и развиваемой системы 1С.</li>
                     <li>Уменьшение человеческого фактора, структуризация данных, прозрачная сквозная аналитика.</li>
                 </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.1.1: Автоматизация УУ в производственной компании',
-                    description: 'Внедрение системы управленческого учета в крупной производственной компании с целью повышения прозрачности финансовых потоков и оперативного контроля затрат.',
-                    results: 'Снижение времени на подготовку управленческой отчетности на 40%, повышение точности данных на 25%, возможность оперативного контроля себестоимости.',
-                    client_type: 'Производство'
-                },
-                {
-                    title: 'Кейс 3.1.2: Оптимизация управленческого учета для ритейла',
-                    description: 'Построение сквозного управленческого учета в сети розничных магазинов для анализа рентабельности по товарным группам и магазинам.',
-                    results: 'Получение детализированной аналитики по продажам и закупкам, выявление наиболее прибыльных товарных позиций и магазинов, сокращение остатков неликвидов на 15%.',
-                    client_type: 'Ритейл'
-                }
-            ]
+            `
         },
         {
-            id: 'service-2',
-            title: 'Аудит и оптимизация 1С:УПП/ERP/КА для сводной управленческой отчетности',
-            shortDescription: 'Анализ и оптимизация существующих систем 1С для точной и сводной управленческой отчетности.',
-            fullDescription: `
-                <p>Эта услуга предназначена для компаний, у которых уже установлена система 1С:УПП, 1С:ERP или 1С:КА, а также производные данных систем, и в которых заказчик хочет вести сводную управленческую отчетность.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Мы предлагаем:</h4>
-                <p>Анализ текущих систем, оптимизация существующих настроек систем, поиск эффективных решений существующих проблем, как за счет типового функционала, так и разработки.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                    <li>Анализ ошибок в настройке существующей системы.</li>
-                    <li>Рекомендации по настройке бизнес-процессов.</li>
-                    <li>Разработка новых регламентов учета нормативно-справочной информации (НСИ), позволяющей перестроить учет в системе для всех блоков.</li>
-                    <li>Анализ закрытия периода, рекомендации по закрытию месяца, исправлению некорректных данных.</li>
-                    <li>Расширение задействованного функционала, используя типовые возможности или минимальные доработки.</li>
-                </ul>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Почему мы можем оказывать такие услуги:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                    <li>Опыт по работе с конфигурациями 1С:УТ, БП, ЗУП, УПП — 15 лет. Опыт по внедрению конфигураций 1С:ERP, КА — 8 лет.</li>
-                    <li>Многолетний опыт в подготовке данных для организации производственной НСИ, настройка взаимосвязанных свойств и характеристик продукции, сырья. Учет требований регламентированного учета, создание единой НСИ компании.</li>
-                    <li>Использование готовых типовых процессов 1С:ERP позволяет минимизировать разработку дополнительных функций и сократить время выполнения проекта и его трудоемкость.</li>
-                </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.2.1: Оптимизация 1С:ERP для консолидированной отчетности',
-                    description: 'Помощь крупному холдингу в перенастройке 1С:ERP для получения единой, сводной управленческой отчетности по всем дочерним предприятиям.',
-                    results: 'Сокращение времени на формирование консолидированной отчетности на 50%, повышение точности данных и оперативности принятия решений.',
-                    client_type: 'Холдинг'
-                },
-                {
-                    title: 'Кейс 3.2.2: Аудит и исправление ошибок в 1С:УПП',
-                    description: 'Комплексный аудит существующей 1С:УПП, выявление и устранение критических ошибок в настройках, приводивших к некорректным данным в отчетах.',
-                    results: 'Восстановление достоверности данных в системе, успешное закрытие периодов, обучение персонала правильной работе с учетом.',
-                    client_type: 'Производство'
-                }
-            ]
-        },
-        {
-            id: 'service-3',
-            title: 'Разработка 1С-решений для повышения операционной эффективности бизнеса',
-            shortDescription: 'Создаем архитектуру 1С-решений для достижения стратегических целей и повышения операционной эффективности бизнеса.',
-            fullDescription: `
-                <p>Эта услуга предназначена для любых компаний, которые хотели бы использовать возможности ИТ-технологий для решения своих стратегических целей, а также для повышения операционной эффективности бизнеса.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Мы предлагаем:</h4>
-                <p>Услуги разработки архитектуры решений для бизнеса на базе продуктов 1С, как для решения стратегических целей бизнеса, так и для повышения операционной эффективности.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                     <li>Решения для склада, продаж, закупок, производства, учета финансов</li>
-                    <li>Сбор и анализ неформализованных требований Заказчика, разработка архитектуры решений.</li>
-                    <li>Участие в проработке технических заданий для внедрения новых и улучшения существующих программных продуктов 1С.</li>
-                    <li>Разработка стандартизованных бизнес-процессов, перекладываемых на программные продукты 1С, совместно с Заказчиком.</li>
-                    <li>Анализ существующих конфигураций 1С (УПП, УТ, КА, ERP, ЗУП) для максимального использования типового функционала.</li>
-                    <li>Участие в разработке и внедрении индивидуальных решений с акцентом на дальнейшее обновление системы.</li>
-                </ul>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Почему мы можем оказывать такие услуги:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                    <li>Опыт более 15 лет в сборе неформализованных требований Заказчика и разработке на их базе решений, как на базе существующих программных продуктов, так и разработанных под специфику Заказчика.</li>
-                    <li>Многолетний опыт внедрения конфигураций с минимальными доработками, использование типового функционала с возможностью дальнейших обновлений.</li>
-                    <li>Опыт по работе с конфигурациями 1С:УТ, БП, ЗУП, УПП — 15 лет. Опыт по внедрению конфигураций 1С:ERP, КА — 8 лет.</li>
-                </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.3.1: Разработка ИТ-стратегии на базе 1С для быстрорастущей компании',
-                    description: 'Создание дорожной карты развития ИТ-инфраструктуры на базе 1С для обеспечения масштабируемости и поддержки быстрого роста компании.',
-                    results: 'Четкий план внедрения и развития 1С-систем, предотвращение будущих "узких мест", оптимизация инвестиций в ИТ.',
-                    client_type: 'Стартап/Быстрорастущий бизнес'
-                },
-                {
-                    title: 'Кейс 3.3.2: Оптимизация бизнес-процессов и архитектуры 1С для производственного холдинга',
-                    description: 'Разработка новой архитектуры взаимодействия 1С-систем и оптимизация сквозных бизнес-процессов для производственного холдинга с целью повышения операционной эффективности.',
-                    results: 'Снижение операционных расходов на 10%, повышение скорости обработки заказов на 15%, улучшение взаимодействия между подразделениями.',
-                    client_type: 'Производственный холдинг'
-                }
-            ]
-        },
-        {
-            id: 'service-4',
+            id: 'service-5',
             title: 'Организация системы кадрового учета и заработной платы',
             shortDescription: 'Точный и оперативный кадровый учет и расчет ЗП в 1С:ЗУП, 1С:КА, 1С:ERP для компаний со сложными начислениями.',
             fullDescription: `
@@ -324,87 +313,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li>Многолетний опыт в подготовке данных для НСИ кадрового учета.</li>
                     <li>10-летний опыт внедрения единых систем учета заработной платы.</li>
                 </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.7.1: Автоматизация ЗП в строительной компании',
-                    description: 'Настройка сложного расчета заработной платы с учетом сдельной оплаты, премий и проектных надбавок для штата в 200+ сотрудников.',
-                    results: 'Сокращение времени на расчет ЗП в 2 раза, устранение ошибок в начислениях, полная прозрачность по расходам на персонал.',
-                    client_type: 'Строительство'
-                },
-                {
-                    title: 'Кейс 3.7.2: Централизация кадрового учета для холдинга',
-                    description: 'Объединение кадрового учета и расчета ЗП нескольких юридических лиц холдинга в единой базе 1С:ЗУП.',
-                    results: 'Единые стандарты кадрового делопроизводства, снижение рисков ошибок и дублирования, централизованная отчетность по персоналу.',
-                    client_type: 'Холдинг (различные отрасли)'
-                }
-            ]
-        },
-        {
-            id: 'service-5',
-            title: 'Перевод доработанных конфигураций 1С на режим обновляемой поддержки',
-            shortDescription: 'Переводим доработанные 1С-конфигурации в режим, позволяющий безопасно получать регулярные обновления.',
-            fullDescription: `
-                <p>Эта услуга предназначена для компаний, которые используют 1С, но постоянно сталкиваются с проблемами при обновлении из-за наличия многочисленных доработок. Наша цель – перевести существующие кастомизированные конфигурации в режим, позволяющий легко и безопасно получать регулярные обновления от 1С.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                    <li>Анализ существующей доработанной конфигурации.</li>
-                    <li>Актуализация доработок и сравнение с типовым функционалом.</li>
-                    <li>Формирование плана перехода на обновляемую систему.</li>
-                    <li>Перенос доработанных объектов в расширения.</li>
-                    <li>Постановка на поддержку конфигурации и тестирование.</li>
-                    <li>Повторное обновление на рабочей базе.</li>
-                    <li>Поддержка работы пользователей после обновления.</li>
-                </ul>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наши преимущества:</h4>
-                <ul class="list-disc list-inside space-y-1">
-                    <li>Собственная методология анализа и оптимизации.</li>
-                    <li>Многолетний опыт внедрения с минимальными доработками.</li>
-                    <li>Глубокая экспертиза в конфигурациях 1С (УТ, БП, ЗУП, ERP, КА).</li>
-                </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.8.1: Обновление сильно доработанной 1С:УТ',
-                    description: 'Компания 5 лет не могла обновить 1С:Управление торговлей из-за сложного нетипового функционала. Мы провели аудит и перевели критичные доработки в расширения.',
-                    results: 'Успешное обновление до последней версии, снижение стоимости ежегодной поддержки на 30%, исчезновение проблем с совместимостью.',
-                    client_type: 'Торговая компания'
-                },
-                {
-                    title: 'Кейс 3.8.2: Адаптация 1С:БП для регулярных обновлений',
-                    description: 'Бухгалтерия предприятия имела ряд специфических отчетов и обработок, которые мешали плановым обновлениям. Функционал был перенесен в расширения.',
-                    results: 'Возможность получать все обновления в срок, стабильная работа бухгалтерского учета, снижение рисков при сдаче отчетности.',
-                    client_type: 'Сервисная компания'
-                }
-            ]
+            `
         },
         {
             id: 'service-6',
-            title: 'Обучение пользователей 1С (1С КА, ЕРП)',
-            shortDescription: 'Проводим обучающие программы для сотрудников по работе с 1С:КА, 1С:ERP и другими конфигурациями.',
+            title: 'Комплексное внедрение 1С:ERP для производственных компаний',
+            shortDescription: 'Полноценное внедрение 1С:ERP "под ключ" для сложных производственных процессов с максимальным использованием типового функционала.',
             fullDescription: `
-                <p>Проведение обучающих программ для сотрудников клиента, обеспечивающих эффективное освоение новых систем.</p>
-                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет услуг включает:</h4>
+                <p>Эта услуга предназначена для производственных компаний (металлообработка, производство продукции из металла, пищевое производство, производство продукции для строительства) с крупными и сложными производственными процессами, которым требуется полноценное внедрение 1С:ERP "под ключ" с адаптацией под специфику отрасли и продукции.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Мы предлагаем:</h4>
+                <p>Проверенную успешными внедрениями технологию перехода на 1С:ERP, адаптированную под настройку процессов конкретной продукции и отрасли. Это обеспечивает максимальное использование типового функционала с минимальными, но необходимыми доработками для уникальных производственных особенностей.</p>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Наш пакет работ включает:</h4>
                 <ul class="list-disc list-inside space-y-1">
-                    <li>Индивидуальные и групповые тренинги: разработка и проведение обучающих курсов по работе с типовым функционалом 1С, а также по использованию внедренных или доработанных решений. Особое внимание уделяется 1С:Комплексная автоматизация (КА) и 1С:ERP Управление предприятием.</li>
-                    <li>Разработка обучающих материалов: создание пошаговых инструкций, видеоуроков, памяток и баз знаний, адаптированных под специфику работы клиента.</li>
-                    <li>Постпроектное сопровождение: дополнительные консультации и поддержка пользователей после завершения основного обучения и запуска системы.</li>
+                    <li>Подготовка справочника продукции, материалов.</li>
+                    <li>Настройка спецификаций и технологических процессов.</li>
+                    <li>Бесшовный переход от заявок на продукцию к производству.</li>
+                    <li>Организация фактического учета на производстве.</li>
+                    <li>Бесшовный переход от производства к складу и отгрузке.</li>
+                    <li>Настройка расчета себестоимости продукции.</li>
                 </ul>
-            `,
-            cases: [
-                {
-                    title: 'Кейс 3.11.1: Обучение команды для внедрения 1С:ERP',
-                    description: 'Комплексное обучение ключевых пользователей и ИТ-специалистов крупного производственного предприятия работе с функционалом 1С:ERP перед запуском системы.',
-                    results: 'Повышение готовности пользователей к работе с новой системой на 90%, снижение количества обращений в техподдержку после запуска, ускорение процесса адаптации.',
-                    client_type: 'Производство'
-                },
-                {
-                    title: 'Кейс 3.11.2: Обучение по специфическим модулям 1С:КА',
-                    description: 'Проведение специализированных тренингов для отдела продаж по работе с подсистемой CRM в 1С:Комплексная автоматизация.',
-                    results: 'Увеличение эффективности использования CRM-модуля на 25%, более точное ведение клиентской базы и истории взаимодействий, улучшение качества планирования продаж.',
-                    client_type: 'Торговая компания'
-                }
-            ]
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Преимущества нашей технологии:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Поэтапный контролируемый переход на систему 1С:ERP.</li>
+                    <li>Многолетний опыт в подготовке производственной НСИ.</li>
+                    <li>Использование готовых типовых процессов 1С:ERP для минимизации разработок.</li>
+                    <li>7-летний опыт автоматизации производственных предприятий на 1С:ERP.</li>
+                </ul>
+                <h4 class="font-semibold mt-4 mb-2 text-slate-700">Результаты для клиента:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Использование единой, поддерживаемой и развиваемой системы 1С.</li>
+                    <li>Уменьшение человеческого фактора при обмене информацией, структуризация данных, прозрачная сквозная аналитика выполнения заказов.</li>
+                </ul>
+            `
         }
     ];
 
@@ -422,17 +362,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="service-detail text-slate-700">
                     <p class="mb-4">${service.shortDescription}</p>
                     <div class="text-sm leading-relaxed text-slate-600">${service.fullDescription}</div>
-                    ${service.cases && service.cases.length > 0 ? `
-                        <div class="cases-container bg-slate-50 p-4 rounded-lg mt-6 border border-slate-200">
-                            <div class="cases-container-header cursor-pointer flex justify-between items-center py-2">
-                                <h4 class="font-semibold text-slate-800">Наши кейсы (${service.cases.length})</h4>
-                                <span class="text-xl text-slate-400 transform transition-transform duration-300">&#9662;</span>
-                            </div>
-                            <div class="cases-container-content space-y-3">
-                                <!-- Case items will be injected here by JS -->
-                            </div>
-                        </div>
-                    ` : ''}
                 </div>
             `;
             servicesContainer.appendChild(serviceCard);
@@ -444,45 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 serviceCard.classList.toggle('open');
                 icon.classList.toggle('rotate-180');
             });
-
-            // Populate and add listeners for nested cases
-            const casesContainer = serviceCard.querySelector('.cases-container');
-            if (casesContainer) {
-                const casesContainerHeader = casesContainer.querySelector('.cases-container-header');
-                const casesContainerIcon = casesContainerHeader.querySelector('span');
-                const casesContentDiv = casesContainer.querySelector('.cases-container-content');
-
-                // Toggle logic for the "Наши кейсы" container
-                casesContainerHeader.addEventListener('click', () => {
-                    casesContainer.classList.toggle('open');
-                    casesContainerIcon.classList.toggle('rotate-180');
-                });
-
-                service.cases.forEach(caseItem => {
-                    const caseDiv = document.createElement('div');
-                    caseDiv.className = 'case-item bg-white rounded-md border border-slate-200 shadow-sm';
-                    caseDiv.innerHTML = `
-                        <div class="case-header cursor-pointer flex justify-between items-center p-3">
-                            <h5 class="font-medium text-slate-800">${caseItem.title}</h5>
-                            <span class="text-lg text-slate-400 transform transition-transform duration-300">&#9662;</span>
-                        </div>
-                        <div class="case-content text-sm text-slate-600 px-3 py-0">
-                            <p class="mb-2"><strong>Описание:</strong> ${caseItem.description}</p>
-                            <p class="mb-2"><strong>Результаты:</strong> ${caseItem.results}</p>
-                            <p><strong>Тип клиента:</strong> ${caseItem.client_type}</p>
-                        </div>
-                    `;
-                    casesContentDiv.appendChild(caseDiv);
-
-                    // Add event listener for individual case expand/collapse
-                    const caseHeader = caseDiv.querySelector('.case-header');
-                    const caseIcon = caseHeader.querySelector('span');
-                    caseHeader.addEventListener('click', () => {
-                        caseDiv.classList.toggle('open');
-                        caseIcon.classList.toggle('rotate-180');
-                    });
-                });
-            }
         });
     }
 
@@ -520,6 +410,57 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
         });
     }
+
+    // Image generation for hero section
+    const generateHeroImage = async () => {
+        const imageContainer = document.getElementById('hero-image-container');
+        const imageLoader = document.getElementById('image-loader');
+        
+        // Show loader
+        imageLoader.classList.remove('hidden');
+        imageContainer.innerHTML = ''; // Clear previous content
+        imageContainer.appendChild(imageLoader);
+
+        try {
+            const prompt = "Futuristic, abstract representation of business automation, with gears, data flows, and interconnected systems, clean lines, vibrant colors, digital art style";
+            const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1 } };
+            const apiKey = ""; // Canvas will automatically provide it in runtime
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                const imgElement = document.createElement('img');
+                imgElement.src = imageUrl;
+                imgElement.alt = "Изображение автоматизации бизнеса";
+                imgElement.className = "rounded-xl shadow-lg max-w-full h-auto";
+                imgElement.style.maxHeight = '300px'; // Limit height for consistency
+                imgElement.style.objectFit = 'cover'; // Cover the container
+
+                imageContainer.innerHTML = ''; // Clear loader
+                imageContainer.appendChild(imgElement);
+            } else {
+                console.error('Failed to generate image:', result);
+                // Fallback to placeholder image if generation fails
+                imageContainer.innerHTML = '<img src="https://placehold.co/500x300/e0f2fe/1e40af?text=Изображение%20автоматизации" alt="Изображение автоматизации бизнеса" class="rounded-xl shadow-lg max-w-full h-auto">';
+            }
+        } catch (error) {
+            console.error('Error generating image:', error);
+            // Fallback to placeholder image if an error occurs
+            imageContainer.innerHTML = '<img src="https://placehold.co/500x300/e0f2fe/1e40af?text=Изображение%20автоматизации" alt="Изображение автоматизации бизнеса" class="rounded-xl shadow-lg max-w-full h-auto">';
+        } finally {
+            imageLoader.classList.add('hidden'); // Hide loader regardless of outcome
+        }
+    };
+
+    generateHeroImage(); // Call image generation on page load
 });
 </script>
 </body>
