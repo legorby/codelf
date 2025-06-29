@@ -411,56 +411,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Image generation for hero section
-    const generateHeroImage = async () => {
-        const imageContainer = document.getElementById('hero-image-container');
-        const imageLoader = document.getElementById('image-loader');
-        
-        // Show loader
-        imageLoader.classList.remove('hidden');
-        imageContainer.innerHTML = ''; // Clear previous content
-        imageContainer.appendChild(imageLoader);
-
-        try {
-            const prompt = "Futuristic, abstract representation of business automation, with gears, data flows, and interconnected systems, clean lines, vibrant colors, digital art style";
-            const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1 } };
-            const apiKey = ""; // Canvas will automatically provide it in runtime
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const result = await response.json();
-
-            if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
-                const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
-                const imgElement = document.createElement('img');
-                imgElement.src = imageUrl;
-                imgElement.alt = "Изображение автоматизации бизнеса";
-                imgElement.className = "rounded-xl shadow-lg max-w-full h-auto";
-                imgElement.style.maxHeight = '300px'; // Limit height for consistency
-                imgElement.style.objectFit = 'cover'; // Cover the container
-
-                imageContainer.innerHTML = ''; // Clear loader
-                imageContainer.appendChild(imgElement);
-            } else {
-                console.error('Failed to generate image:', result);
-                // Fallback to placeholder image if generation fails
-                imageContainer.innerHTML = '<img src="https://placehold.co/500x300/e0f2fe/1e40af?text=Изображение%20автоматизации" alt="Изображение автоматизации бизнеса" class="rounded-xl shadow-lg max-w-full h-auto">';
-            }
-        } catch (error) {
-            console.error('Error generating image:', error);
-            // Fallback to placeholder image if an error occurs
-            imageContainer.innerHTML = '<img src="https://placehold.co/500x300/e0f2fe/1e40af?text=Изображение%20автоматизации" alt="Изображение автоматизации бизнеса" class="rounded-xl shadow-lg max-w-full h-auto">';
-        } finally {
-            imageLoader.classList.add('hidden'); // Hide loader regardless of outcome
-        }
-    };
-
-    generateHeroImage(); // Call image generation on page load
+   // Direct image for hero section from GitHub Pages
+    // Remove the previous dynamic image generation logic
+    const heroImageContainer = document.getElementById('hero-image-container');
+    heroImageContainer.innerHTML = `
+        <img src="https://legorby.github.io/codelf/image.png"
+             alt="Изображение"
+             class="rounded-xl shadow-lg max-w-full h-auto"
+             style="max-height: 300px; object-fit: cover;">
+    `;
+    // Instructions: Replace "https://your-github-username.github.io/your-repository-name/path/to/your/image.png"
+    // with the actual URL of your image hosted on GitHub Pages.
 });
 </script>
 </body>
