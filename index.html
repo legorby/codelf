@@ -175,7 +175,7 @@
                     </div>
                 </form>
                 <p class="text-xs text-slate-500 mt-4 text-center">
-                    Для реальной отправки заявки в Telegram замените "ВАШ_URL_GOOGLE_APPS_SCRIPT" на URL вашего развернутого скрипта Google Apps Script.
+                    ...
                 </p>
             </div>
         </section>
@@ -407,13 +407,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Simple form submission (can be extended with backend logic)
-    const contactForm = document.querySelector('#contact form');
+       // Handle form submission
+    const contactForm = document.querySelector('#contact-form'); // Use ID to target specific form
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-            contactForm.reset();
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(contactForm);
+            const data = {};
+            // Convert FormData to a plain object
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Replace "ВАШ_URL_GOOGLE_APPS_SCRIPT" with your actual deployed Google Apps Script URL
+            const scriptUrl = contactForm.action; // Get URL from form's action attribute
+
+            try {
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded', // This matches e.parameter in GAS
+                    },
+                    body: new URLSearchParams(data).toString(), // Send data as URL-encoded string
+                });
+
+                const resultText = await response.text();
+
+                if (response.ok) {
+                    alert('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                    contactForm.reset();
+                } else {
+                    alert('Произошла ошибка при отправке заявки: ' + resultText);
+                    console.error('Ошибка отправки формы:', resultText);
+                }
+            } catch (error) {
+                alert('Произошла ошибка сети при отправке заявки.');
+                console.error('Сетевая ошибка:', error);
+            }
         });
     }
 
