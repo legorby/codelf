@@ -44,6 +44,46 @@
         .rotate-180 {
             transform: rotate(180deg);
         }
+        .table-auto {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-auto th, .table-auto td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            text-align: left;
+        }
+        .table-auto th {
+            background-color: #f1f5f9; /* slate-100 */
+            font-weight: 600;
+            color: #334155; /* slate-700 */
+        }
+        /* Styles for collapsible table rows */
+        .collapsible-table-row {
+            cursor: pointer;
+        }
+        .collapsible-table-row:hover {
+            background-color: #f0f9ff; /* sky-50 */
+        }
+        .collapsible-content-row {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+            background-color: #f8fafc; /* slate-50 */
+            border-top: none;
+            padding: 0 1.5rem;
+        }
+        /* Removed fixed max-height here to allow JS to control it dynamically */
+        .collapsible-table-row.open + .collapsible-content-row {
+            padding: 1rem 1.5rem;
+        }
+        .collapsible-table-row .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+        .collapsible-table-row.open .arrow-icon {
+            transform: rotate(180deg);
+        }
+        
         /* Loading spinner styles */
         .loader {
             border: 4px solid #f3f3f3; /* Light grey */
@@ -121,7 +161,6 @@
             </div>
         </section>
         <!-- Cases Section -->
-        <!-- Cases Section -->
         <section id="cases" class="py-16 md:py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-12">Наши кейсы: Истории успеха</h2>
             <p class="text-lg text-slate-600 text-center mb-12">
@@ -131,7 +170,7 @@
             <div class="bg-white p-8 md:p-12 rounded-xl shadow-md border border-slate-200 mb-8">
                 <h3 class="text-2xl font-bold text-slate-900 mb-6">Наш опыт в цифрах и примерах проектов</h3>
                 <p class="text-slate-700 mb-6">
-                    Мы обладаем обширным опытом внедрения и оптимизации 1С-систем в различных отраслях. Нажмите на строку таблицы, чтобы увидеть краткие примеры проектов.
+                    Мы обладаем обширным опытом внедрения и оптимизации 1С-систем в различных областях Ниже представлена краткая сводка наших ключевых компетенций.
                 </p>
 
                 <div class="overflow-x-auto mb-8">
@@ -154,9 +193,11 @@
                     <p class="text-lg text-slate-700 mb-0 md:mb-6">
                         Мы внедряем проекты с прицелом на **дальнейшую самостоятельную поддержку заказчиком** или **минимальное участие** с нашей стороны, что позволяет избежать больших вложений в постоянное сопровождение.
                     </p>
+                   <!--
                     <a href="#detailed-cases" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4DD;</span> Читать подробнее о наших кейсах
                     </a>
+                    -->
                     <a href="#contact" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4BC;</span> Заявка на встречу-показ
                     </a>
@@ -495,35 +536,25 @@ document.addEventListener('DOMContentLoaded', () => {
             serviceCard.className = 'service-card bg-white rounded-xl shadow-md border border-slate-200 cursor-pointer';
             serviceCard.innerHTML = `
                 <div class="p-6 flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-800">${service.title}</h3>
-                        <p class="text-amber-600 font-semibold">${service.shortDescription}</p>
-                    </div>
-                    <span class="text-2xl text-slate-400 transform transition-transform duration-300">&#x25BC;</span>
+                    <h3 class="text-xl font-semibold text-slate-800">${service.title}</h3>
+                    <span class="text-2xl text-slate-400 transform transition-transform duration-300">&#9662;</span>
                 </div>
-                <div class="service-detail px-6">
-                    <div class="border-t pt-4 pb-6">
-                        ${service.fullDescription}
-                    </div>
+                <div class="service-detail text-slate-700">
+                    <p class="mb-4">${service.shortDescription}</p>
+                    <div class="text-sm leading-relaxed text-slate-600">${service.fullDescription}</div>
                 </div>
             `;
-            serviceCard.addEventListener('click', () => {
-                const detail = serviceCard.querySelector('.service-detail');
-                const arrow = serviceCard.querySelector('span');
-                detail.classList.toggle('open');
-                arrow.classList.toggle('rotate-180');
-                if(detail.classList.contains('open')) {
-                    detail.style.paddingTop = '1rem';
-                    detail.style.paddingBottom = '1.5rem';
-                } else {
-                    detail.style.paddingTop = '0';
-                    detail.style.paddingBottom = '0';
-                }
-            });
             servicesContainer.appendChild(serviceCard);
+
+            // Add event listener for main service expand/collapse
+            const header = serviceCard.querySelector('.p-6');
+            const icon = header.querySelector('span');
+            header.addEventListener('click', () => {
+                serviceCard.classList.toggle('open');
+                icon.classList.toggle('rotate-180');
+            });
         });
     }
-
     // Populate Cases Table dynamically with collapsible rows
     const casesTableBody = document.getElementById('cases-table-body');
     if (casesTableBody) {
