@@ -121,6 +121,7 @@
             </div>
         </section>
         <!-- Cases Section -->
+        <!-- Cases Section -->
         <section id="cases" class="py-16 md:py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-12">Наши кейсы: Истории успеха</h2>
             <p class="text-lg text-slate-600 text-center mb-12">
@@ -130,7 +131,7 @@
             <div class="bg-white p-8 md:p-12 rounded-xl shadow-md border border-slate-200 mb-8">
                 <h3 class="text-2xl font-bold text-slate-900 mb-6">Наш опыт в цифрах и примерах проектов</h3>
                 <p class="text-slate-700 mb-6">
-                    Мы обладаем обширным опытом внедрения и оптимизации 1С-систем в различных областях Ниже представлена краткая сводка наших ключевых компетенций.
+                    Мы обладаем обширным опытом внедрения и оптимизации 1С-систем в различных отраслях. Нажмите на строку таблицы, чтобы увидеть краткие примеры проектов.
                 </p>
 
                 <div class="overflow-x-auto mb-8">
@@ -140,34 +141,11 @@
                                 <th class="px-4 py-2">Услуга / Тип проекта</th>
                                 <th class="px-4 py-2">Опыт (лет)</th>
                                 <th class="px-4 py-2">Количество реализованных проектов</th>
+                                <th class="px-4 py-2"></th> <!-- Для иконки стрелки -->
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="px-4 py-2">Управленческий учет и расчет себестоимости на 1С УПП, УТ, КА, ERP (включая Казначейство, Склад, Продажи, Закупки)</td>
-                                <td class="px-4 py-2">15+</td>
-                                <td class="px-4 py-2">10+</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Кадровый учет и расчет заработной платы на 1С ЗУП, УПП, КА, ERP </td>
-                                <td class="px-4 py-2">10+</td>
-                                <td class="px-4 py-2">5+</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Производственный учет (1С:ERP)</td>
-                                <td class="px-4 py-2">7+</td>
-                                <td class="px-4 py-2">5+</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Анализ и оптимизация существующих систем 1С, разработка решений под заказчика на базе 1С УПП, УТ, КА, ERP, БП, ЗУП</td>
-                                <td class="px-4 py-2">15+</td>
-                                <td class="px-4 py-2">20+</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2">Перевод доработанных конфигураций на обновляемую поддержку (1С УТ, ERP, КА, БП) </td>
-                                <td class="px-4 py-2">5+</td>
-                                <td class="px-4 py-2">6+</td>
-                            </tr>
+                        <tbody id="cases-table-body">
+                            <!-- Rows will be dynamically injected here by JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -176,11 +154,9 @@
                     <p class="text-lg text-slate-700 mb-0 md:mb-6">
                         Мы внедряем проекты с прицелом на **дальнейшую самостоятельную поддержку заказчиком** или **минимальное участие** с нашей стороны, что позволяет избежать больших вложений в постоянное сопровождение.
                     </p>
-                   <!--
                     <a href="#detailed-cases" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4DD;</span> Читать подробнее о наших кейсах
                     </a>
-                    -->
                     <a href="#contact" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4BC;</span> Заявка на встречу-показ
                     </a>
@@ -457,6 +433,59 @@ document.addEventListener('DOMContentLoaded', () => {
             `
         }
     ];
+    // Data for interactive cases table
+    const casesTableData = [
+        {
+            title: 'Управленческий учет (включая Казначейство, Склад, Продажи, Закупки)',
+            experience: '15+',
+            projects: '10+',
+            examples: [
+                'Внедрение сквозного управленческого учета в крупной торговой компании на 1С:УТ 11.5, включая автоматизацию процессов закупок, продаж и складского учета.',
+                'Настройка казначейства и бюджетирования в 1С:ERP для производственного холдинга, обеспечившая контроль денежных потоков и планирование расходов.',
+                'Оптимизация учета взаиморасчетов с контрагентами и формирование управленческой отчетности по дебиторской/кредиторской задолженности.'
+            ]
+        },
+        {
+            title: 'Кадровый учет и расчет заработной платы',
+            experience: '10+',
+            projects: '5+',
+            examples: [
+                'Автоматизация расчета сложной сдельной заработной платы для строительной компании с учетом выработки бригад и индивидуальных надбавок.',
+                'Перевод кадрового учета крупного ритейлера в 1С:ЗУП, включая интеграцию с системами учета рабочего времени и автоматическое формирование табелей.',
+                'Настройка учета отпусков, больничных и командировок в соответствии с трудовым законодательством РФ.'
+            ]
+        },
+        {
+            title: 'Производственный учет (1С:ERP)',
+            experience: '7+',
+            projects: '5+',
+            examples: [
+                'Внедрение 1С:ERP на машиностроительном заводе, автоматизация планирования производства, учета незавершенного производства и расчета себестоимости готовой продукции.',
+                'Оптимизация производственного учета на пищевом предприятии, включая партионный учет сырья и готовой продукции, контроль качества на всех этапах.',
+                'Настройка учета давальческого сырья и производства на заказ в 1С:ERP для мебельной фабрики.'
+            ]
+        },
+        {
+            title: 'Аудит и оптимизация существующих систем 1С',
+            experience: '15+',
+            projects: '8+',
+            examples: [
+                'Проведение аудита производительности 1С:УПП и разработка рекомендаций по оптимизации запросов и структуры базы данных, что привело к ускорению работы системы на 30%.',
+                'Оптимизация закрытия месяца в 1С:ERP для крупного производственного предприятия, сокращение времени закрытия с нескольких дней до нескольких часов.',
+                'Анализ некорректных данных в 1С:Бухгалтерия и разработка механизмов их исправления, восстановление целостности учета.'
+            ]
+        },
+        {
+            title: 'Перевод доработанных конфигураций на обновляемую поддержку',
+            experience: '10+',
+            projects: '5+',
+            examples: [
+                'Перевод сильно доработанной 1С:УТ 10.3 на 11.5 с переносом всех критичных доработок в расширения, что позволило клиенту без проблем обновлять систему.',
+                'Оптимизация конфигурации 1С:Бухгалтерия, которая не обновлялась 3 года из-за уникальных доработок, с последующим переводом на стандартную поддержку.',
+                'Разработка стратегии и реализация перехода на новую версию 1С:ERP с сохранением уникального функционала через механизм расширений.'
+            ]
+        }
+    ];
 
     const servicesContainer = document.getElementById('services-container');
     if (servicesContainer) {
@@ -466,22 +495,100 @@ document.addEventListener('DOMContentLoaded', () => {
             serviceCard.className = 'service-card bg-white rounded-xl shadow-md border border-slate-200 cursor-pointer';
             serviceCard.innerHTML = `
                 <div class="p-6 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold text-slate-800">${service.title}</h3>
-                    <span class="text-2xl text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">${service.title}</h3>
+                        <p class="text-amber-600 font-semibold">${service.shortDescription}</p>
+                    </div>
+                    <span class="text-2xl text-slate-400 transform transition-transform duration-300">&#x25BC;</span>
                 </div>
-                <div class="service-detail text-slate-700">
-                    <p class="mb-4">${service.shortDescription}</p>
-                    <div class="text-sm leading-relaxed text-slate-600">${service.fullDescription}</div>
+                <div class="service-detail px-6">
+                    <div class="border-t pt-4 pb-6">
+                        ${service.fullDescription}
+                    </div>
                 </div>
             `;
+            serviceCard.addEventListener('click', () => {
+                const detail = serviceCard.querySelector('.service-detail');
+                const arrow = serviceCard.querySelector('span');
+                detail.classList.toggle('open');
+                arrow.classList.toggle('rotate-180');
+                if(detail.classList.contains('open')) {
+                    detail.style.paddingTop = '1rem';
+                    detail.style.paddingBottom = '1.5rem';
+                } else {
+                    detail.style.paddingTop = '0';
+                    detail.style.paddingBottom = '0';
+                }
+            });
             servicesContainer.appendChild(serviceCard);
+        });
+    }
 
-            // Add event listener for main service expand/collapse
-            const header = serviceCard.querySelector('.p-6');
-            const icon = header.querySelector('span');
-            header.addEventListener('click', () => {
-                serviceCard.classList.toggle('open');
-                icon.classList.toggle('rotate-180');
+    // Populate Cases Table dynamically with collapsible rows
+    const casesTableBody = document.getElementById('cases-table-body');
+    if (casesTableBody) {
+        casesTableData.forEach((item, index) => {
+            // Main row for the service type
+            const mainRow = document.createElement('tr');
+            mainRow.className = 'collapsible-table-row border-b border-slate-200';
+            mainRow.dataset.index = index; // Store index to link with detail row
+            mainRow.innerHTML = `
+                <td class="px-4 py-2 font-semibold text-slate-800">${item.title}</td>
+                <td class="px-4 py-2">${item.experience}</td>
+                <td class="px-4 py-2">${item.projects}</td>
+                <td class="px-4 py-2 text-center"><span class="arrow-icon">&#x25BC;</span></td>
+            `;
+            casesTableBody.appendChild(mainRow);
+
+            // Detail row for examples (initially hidden)
+            const detailRow = document.createElement('tr');
+            detailRow.className = 'collapsible-content-row';
+            detailRow.innerHTML = `
+                <td colspan="4" class="px-4 py-0">
+                    <div class="inner-content text-slate-600">
+                        <h4 class="font-semibold text-slate-700 mb-2">Примеры проектов:</h4>
+                        <ul class="list-disc list-inside space-y-1 pb-4">
+                            ${item.examples.map(example => `<li>${example}</li>`).join('')}
+                        </ul>
+                    </div>
+                </td>
+            `;
+            casesTableBody.appendChild(detailRow);
+        });
+
+        // Add event listeners to collapsible table rows
+        document.querySelectorAll('.collapsible-table-row').forEach(row => {
+            row.addEventListener('click', () => {
+                const isOpen = row.classList.contains('open');
+                
+                // Close all other open rows
+                document.querySelectorAll('.collapsible-table-row.open').forEach(openRow => {
+                    if (openRow !== row) {
+                        openRow.classList.remove('open');
+                        const openDetailRow = openRow.nextElementSibling;
+                        if (openDetailRow && openDetailRow.classList.contains('collapsible-content-row')) {
+                            openDetailRow.style.maxHeight = '0';
+                            openDetailRow.style.paddingTop = '0';
+                            openDetailRow.style.paddingBottom = '0';
+                        }
+                    }
+                });
+
+                // Toggle the clicked row
+                row.classList.toggle('open');
+                const detailRow = row.nextElementSibling; // The very next sibling is the detail row
+                if (detailRow && detailRow.classList.contains('collapsible-content-row')) {
+                    if (row.classList.contains('open')) {
+                        // Set max-height based on content to allow smooth transition
+                        detailRow.style.maxHeight = detailRow.scrollHeight + 'px';
+                        detailRow.style.paddingTop = '1rem';
+                        detailRow.style.paddingBottom = '1.5rem';
+                    } else {
+                        detailRow.style.maxHeight = '0';
+                        detailRow.style.paddingTop = '0';
+                        detailRow.style.paddingBottom = '0';
+                    }
+                }
             });
         });
     }
