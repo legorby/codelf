@@ -83,7 +83,18 @@
         .collapsible-table-row.open .arrow-icon {
             transform: rotate(180deg);
         }
-        
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.08); /* shadow-md */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+ 
         /* Loading spinner styles */
         .loader {
             border: 4px solid #f3f3f3; /* Light grey */
