@@ -273,9 +273,16 @@
             <div id="services-container-cases" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Service cards will be dynamically injected here -->
             </div>
+             <div class="text-center flex flex-col md:flex-row justify-center items-center md:space-x-4 space-y-4 md:space-y-0">
+    
+                       <a href="#contact" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
+                        <span class="mr-2">&#x1F4BC;</span> Заявка на встречу-показ
+                    </a>
+         </div>
         </section>
        
         <!-- Cases Section -->
+        <!--
         <section id="cases" class="py-16 md:py-20">
             <p class="text-lg text-slate-600 text-center mb-12">
                 Здесь мы делимся реальными примерами наших решений.
@@ -294,11 +301,11 @@
                                 <th class="px-4 py-2">Услуга / Тип проекта</th>
                                 <th class="px-4 py-2">Опыт (лет)</th>
                                 <th class="px-4 py-2">Количество реализованных проектов</th>
-                                <th class="px-4 py-2"></th> <!-- Для иконки стрелки -->
+                                <th class="px-4 py-2"></th> <!-- Для иконки стрелки 
                             </tr>
                         </thead>
                         <tbody id="cases-table-body">
-                            <!-- Rows will be dynamically injected here by JavaScript -->
+                            <!-- Rows will be dynamically injected here by JavaScript 
                         </tbody>
                     </table>
                 </div>
@@ -311,13 +318,13 @@
                     <a href="#detailed-cases" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4DD;</span> Читать подробнее о наших кейсах
                     </a>
-                    -->
+                    
                     <a href="#contact" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <span class="mr-2">&#x1F4BC;</span> Заявка на встречу-показ
                     </a>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Why Choose Us Section -->
         <!--
@@ -875,7 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="text-sm leading-relaxed text-slate-600">${service.fullDescription}</div>
                 </div>
             `;
-            servicesContainer.appendChild(serviceCard);
+            servicesContainerCases.appendChild(serviceCard);
 
             // Add event listener for main service expand/collapse
             const header = serviceCard.querySelector('.p-6');
